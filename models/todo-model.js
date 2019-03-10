@@ -11,3 +11,7 @@ const Todo = module.exports = mongoose.Model('Todo', todoSchema);
 module.exports.addTodo = function(newTodo, callback) {
     newTodo.save(callback);
 }
+
+module.exports.getTodos = function(newTodo, callback) {
+    Todo.find({}, callback);
+}

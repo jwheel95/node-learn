@@ -4,15 +4,28 @@ const bodyParser = require('body-parser');
 const todo = require('./models/todo-model');
 const mongoose = require('mongoose');
 
+mongoose.connect('mongodb://admin:Password1@ds137483.mlab.com:37483/todo-db', { useNewUrlParser: true });
+mongoose.connection.on('connected', () => {
+    console.log('Connected to Db');
+});
+
 const app = express();
 
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.get('/api/todos', (req, res) => {
-   res.status(200).send({
+
+    todo.find({}, (err, todos) => {
+        res.status(200).send({
+            success: 'true',
+            todos: todos
+        })
+    })
+
+    res.status(200).send({
        success: 'true',
-       todos: db
-   }); 
+       todos:
+    }); 
 });
 
 app.post('/api/todos', (req, res) => {
